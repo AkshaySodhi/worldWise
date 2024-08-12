@@ -5,3 +5,11 @@
   display: flex;
   position: relative;
 }
+
+.topbar {
+  display: flex;
+  position: absolute;
+  top: 4.2rem;
+  right: 4.2rem;
+  gap: 1rem;
+}

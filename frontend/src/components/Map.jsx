@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   MapContainer,
   TileLayer,
@@ -15,9 +15,15 @@ import { useGeolocation } from "../hooks/useGeolocation";
 import { useUrlPosition } from "../hooks/useUrlPosition";
 import Button from "./Button";
 
+const tiles = [
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+];
+
 function Map() {
   const { cities } = useCities();
   const [mapPosition, setMapPosition] = useState([28, 80]);
+  const [tileInd, setTileInd] = useState(0);
   const {
     isLoading: isLoadingPosition,
     position: geolocationPosition,
@@ -56,7 +62,7 @@ function Map() {
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url={tiles[tileInd]}
         />
         {cities.map((city) => (
           <Marker
@@ -72,6 +78,13 @@ function Map() {
         <ChangeCenter position={mapPosition} />
         <DetectClick />
       </MapContainer>
+
+      <button
+        className={styles.tileBtn}
+        onClick={() => setTileInd((tileInd) => (tileInd + 1) % tiles.length)}
+      >
+        View
+      </button>
     </div>
   );
 }
