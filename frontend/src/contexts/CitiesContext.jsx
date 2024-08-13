@@ -6,6 +6,7 @@ import {
   useCallback,
 } from "react";
 import { useAuth } from "./AuthContext";
+import gemini from "../utils/gemini.js";
 
 const CitiesContext = createContext();
 
@@ -36,7 +37,7 @@ function reducer(state, action) {
         ...state,
         isLoading: false,
         cities: [...state.cities, action.payload],
-        currentCity: action.payload,
+        currentCity: {},
       };
 
     case "city/deleted":
@@ -90,6 +91,21 @@ function CitiesProvider({ children }) {
     [user]
   );
 
+  const getCityInfo = async (cityName) => {
+    try {
+      if (!cityName) return;
+      const prompt = `give 2 lines info about city of ${cityName}`;
+
+      const result = await gemini.generateContent(prompt);
+      const response = result.response;
+      const text = response.text();
+
+      return text;
+    } catch (err) {
+      return `Couldn't find information about city ${cityName}`;
+    }
+  };
+
   const getCity = useCallback(
     async function getCity(id) {
       if (id === currentCity.id) return;
@@ -99,7 +115,11 @@ function CitiesProvider({ children }) {
       try {
         const res = await fetch(`/api/cities/${id}`);
         const data = await res.json();
-        dispatch({ type: "city/loaded", payload: { ...data, id: data._id } });
+        const cityInfo = await getCityInfo(data.cityName);
+        dispatch({
+          type: "city/loaded",
+          payload: { ...data, info: cityInfo, id: data._id },
+        });
       } catch {
         dispatch({
           type: "rejected",

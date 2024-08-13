@@ -16,12 +16,11 @@ const formatDate = (date) =>
 function City() {
   const { id } = useParams();
   const { getCity, currentCity, isLoading } = useCities();
+  const { cityName, emoji, date, notes, info } = currentCity;
 
   useEffect(() => {
     getCity(id);
   }, [id, getCity]);
-
-  const { cityName, emoji, date, notes } = currentCity;
 
   if (isLoading) return <Spinner />;
 
@@ -45,6 +44,11 @@ function City() {
           <p>{notes}</p>
         </div>
       )}
+
+      <div className={styles.row}>
+        <h6>At a glance</h6>
+        <p>{info}</p>
+      </div>
 
       <div className={styles.row}>
         <h6>Learn more</h6>
