@@ -1,14 +1,7 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import City from "../models/city.model.js";
 import List from "../models/list.model.js";
 import User from "../models/user.model.js";
-
-// const newCity = {
-//   cityName,
-//   country,
-//   emoji,
-//   date,
-//   notes,
-//   position: { lat, lng },
 
 export const addCity = async (req, res) => {
   try {
@@ -94,6 +87,46 @@ export const removeCity = async (req, res) => {
     res.status(200).json({ msg: "success" });
   } catch (err) {
     console.error("error in rem contrll", err);
+    res.status(500).json({ error: "internal server error" });
+  }
+};
+
+export const getCityInfo = async (req, res) => {
+  try {
+    const { cityName } = req.params;
+    const prompt = `give 2 lines info about city of ${cityName}`;
+
+    const gemKey = process.env.GEMINI_KEY;
+    const genAI = new GoogleGenerativeAI(gemKey);
+    const gemini = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const result = await gemini.generateContent(prompt);
+    const response = result.response;
+    const text = response.text();
+
+    res.status(200).json(text);
+  } catch (err) {
+    console.log("error in getcity info controller", err);
+    res.status(500).json({ error: "internal server error" });
+  }
+};
+
+export const getCityItenary = async (req, res) => {
+  try {
+    const { cityName } = req.params;
+    const prompt = `give 5-6 lines of travel iternary in the city of ${cityName}, seperate each point using a #, dont use any other symbols.`;
+
+    const gemKey = process.env.GEMINI_KEY;
+    const genAI = new GoogleGenerativeAI(gemKey);
+    const gemini = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const result = await gemini.generateContent(prompt);
+    const response = result.response;
+    const text = response.text();
+
+    res.status(200).json(text);
+  } catch (err) {
+    console.log("error in getcity info controller", err);
     res.status(500).json({ error: "internal server error" });
   }
 };

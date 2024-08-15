@@ -1,0 +1,22 @@
+.heading {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem;
+  background-color: var(--color-dark--1);
+  border-radius: 1rem;
+  transition: all 1s;
+}
+
+.heading button {
+  background-color: var(--color-dark--2);
+  padding: 0.2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  color: white;
+  border: none;
+  border-radius: 2rem;
+}
+
+.content {
+  padding: 0.8rem;
+}

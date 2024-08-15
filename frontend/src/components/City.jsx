@@ -4,6 +4,7 @@ import { useCities } from "../contexts/CitiesContext";
 import BackButton from "./BackButton";
 import styles from "./City.module.css";
 import Spinner from "./Spinner";
+import Dropdown from "./Dropdown";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -16,7 +17,7 @@ const formatDate = (date) =>
 function City() {
   const { id } = useParams();
   const { getCity, currentCity, isLoading } = useCities();
-  const { cityName, emoji, date, notes, info } = currentCity;
+  const { cityName, emoji, date, notes } = currentCity;
 
   useEffect(() => {
     getCity(id);
@@ -45,10 +46,8 @@ function City() {
         </div>
       )}
 
-      <div className={styles.row}>
-        <h6>At a glance</h6>
-        <p>{info}</p>
-      </div>
+      <Dropdown heading={"At a glance"} type={"info"} cityName={cityName} />
+      <Dropdown heading={"Tour itenary"} type={"itenary"} cityName={cityName} />
 
       <div className={styles.row}>
         <h6>Learn more</h6>
