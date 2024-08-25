@@ -12,10 +12,11 @@ export default function Login() {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-
-    if (userName && password) login(userName, password);
+    await login(userName, password);
+    setUserName("");
+    setPassword("");
   }
 
   useEffect(

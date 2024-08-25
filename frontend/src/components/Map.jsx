@@ -18,6 +18,7 @@ import Button from "./Button";
 const tiles = [
   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
   "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+  "http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}&s=Ga",
 ];
 
 function Map() {

@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import { CitiesProvider } from "./contexts/CitiesContext";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -48,6 +49,13 @@ function App() {
               <Route path="*" element={<PageNotFound />} />
             </Routes>
           </Suspense>
+          <Toaster toastOptions={{
+            error:{
+              style:{
+                fontSize:"medium",
+              }
+            }
+          }}/>
         </BrowserRouter>
       </CitiesProvider>
     </AuthProvider>

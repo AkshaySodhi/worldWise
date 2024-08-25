@@ -140,7 +140,7 @@ export { AuthProvider, useAuth };
 
 function handleLoginInputErrors(userName, password) {
   if (!userName || !password) {
-    toast.error("Please fill all fields");
+    toast.error("Please fill in all fields");
     return false;
   }
   return true;
@@ -154,12 +154,12 @@ function handleSignupInputErrors({
   gender,
 }) {
   if (!fullName || !userName || !password || !confirmPassword || !gender) {
-    toast.error("Please fill all fields");
+    toast.error("Please fill in all fields");
     return false;
   }
 
   if (!password) {
-    toast.error("Passwords dont match");
+    toast.error("Passwords don't match");
     return false;
   }
 

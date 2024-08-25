@@ -15,6 +15,11 @@
   position: relative;
 }
 
+.row textarea
+{
+  resize:none;
+}
+
 .buttons {
   display: flex;
   justify-content: space-between;
@@ -25,6 +30,7 @@
   right: 1rem;
   top: 2.7rem;
   font-size: 2.8rem;
+  color: var(--color-dark--1);
 }
 
 .form.loading {

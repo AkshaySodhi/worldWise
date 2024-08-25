@@ -9,6 +9,7 @@
   height: calc(100vh - 4.8rem);
 
   max-width: 60rem;
+  overflow: scroll;
 }
 
 .footer {
