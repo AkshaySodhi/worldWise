@@ -1,0 +1,87 @@
+.profile
+{
+    height: 100vh;
+    background-image: linear-gradient(
+      rgba(250, 250, 250, 0.4),
+      rgba(255, 255, 255, 0.4)
+    ),
+    url("/bg.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.overview
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: linear-gradient(to top right, #3C4758,#222222);
+    padding: 5rem;
+}
+
+.overview h1
+{
+    font-size:xx-large;
+    font-weight: lighter;
+}
+
+.overview p
+{
+    font-size:small;
+    color: var(--color-light--1);
+}
+
+.overview img
+{
+    height: 14rem;   
+    width: 14rem;
+    border: 0.5rem solid var(--color-brand--2);
+    border-radius: 100%;
+    padding: 0.1rem;
+    margin-bottom: 2rem;
+    transition: 1s ease;
+}
+
+.overview img:hover{
+    transform: scale(1.1);
+    border: 0.5rem solid var(--color-brand--1);
+}
+
+.infoArea
+{
+    position: absolute;
+    z-index: 999;
+    top:52rem;
+    left:50%;
+    transform: translate(-50%,-50%);
+
+    background-color: white;
+    color: var(--color-dark--0);
+    border-radius: 1rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    
+    padding: 2rem;
+    width: 52rem;
+}
+
+
+.row input
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.passwordForm button
+{
+    margin-top: 1rem;
+    background-color: var(--color-brand--2);
+    border-radius: 7px;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    color: var(--color-dark--0);
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}

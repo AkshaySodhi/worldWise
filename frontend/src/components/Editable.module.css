@@ -1,0 +1,42 @@
+.close
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.close p
+{
+    font-size: medium;
+}
+
+.close button
+{
+    border-radius: 7px;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    color: inherit;
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.open
+{
+    display: flex;
+    gap:0.5rem;
+}
+
+.open button
+{
+    border-radius: 7px;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    color: inherit;
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}

@@ -70,6 +70,7 @@ export const login = async (req, res) => {
       fullName: user.fullName,
       userName: user.userName,
       profilePic: user.profilePic,
+      gender:user.gender,
     });
   } catch (err) {
     console.error("error in login contrll: ", err);

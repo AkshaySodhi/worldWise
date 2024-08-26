@@ -6,6 +6,7 @@ import path from "path";
 
 import authRoutes from "./routes/auth.routes.js";
 import cityRoutes from "./routes/city.routes.js";
+import userRoutes from "./routes/user.routes.js";
 import connectToDB from "./db/connectToDB.js";
 
 dotenv.config("");
@@ -21,6 +22,7 @@ app.use(morgan("dev"));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/cities", cityRoutes);
+app.use("/api/user",userRoutes);
 
 app.use(express.static(path.join(__dirname, "/frontend/dist")));
 

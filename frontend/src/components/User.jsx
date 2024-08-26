@@ -6,16 +6,20 @@ function User() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  function handleClick() {
+  function handleClickLogout() {
     logout();
     navigate("/");
   }
 
+  function handleClickProfile() {
+    navigate("/profile");
+  }
+
   return (
     <div className={styles.user}>
-      <img src={user.profilePic} alt={user.fullName} />
+      <img src={user.profilePic} alt={user.fullName} onClick={handleClickProfile} />
       <span>Welcome, {user.fullName}</span>
-      <button onClick={handleClick}>Logout</button>
+      <button onClick={handleClickLogout}>Logout</button>
     </div>
   );
 }

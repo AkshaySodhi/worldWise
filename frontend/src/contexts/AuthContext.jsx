@@ -118,9 +118,93 @@ function AuthProvider({ children }) {
     }
   };
 
+  const updateFullName = async (fullName) => {
+    if (!fullName || localUser.fullName === fullName) return;
+
+    try {
+      const res = await fetch(`/api/user/fullname/${localUser._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      localStorage.setItem("ww-user", JSON.stringify(data));
+      dispatch({ type: "login", payload: data });
+      toast.success("Full Name updated successfully!");
+    }
+    catch (error) {
+      toast.error(error.message);
+    }
+  }
+
+  const updateUserName = async (userName) => {
+    if (!userName || localUser.userName === userName) return;
+
+    try {
+      const res = await fetch(`/api/user/username/${localUser._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userName,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      localStorage.setItem("ww-user", JSON.stringify(data));
+      dispatch({ type: "login", payload: data });
+      toast.success("Username updated successfully!");
+    }
+    catch (error) {
+      toast.error(error.message);
+    }
+  }
+
+  const updatePassword = async (oldPassword, newPassword, confirmPassword) => {
+    const success = handleUpdatePassInputErrors(oldPassword, newPassword, confirmPassword);
+    if (!success) return;
+
+    try {
+      const res = await fetch(`/api/user/password/${localUser._id}`, {
+        method: "PUT",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          oldPassword,
+          newPassword,
+          confirmPassword,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      localStorage.setItem("ww-user", JSON.stringify(data));
+      dispatch({ type: "login", payload: data });
+      toast.success("Password updated successfully!");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, login, logout, signup }}
+      value={{ user, isAuthenticated, login, logout, signup, updateFullName, updateUserName, updatePassword }}
     >
       {children}
     </AuthContext.Provider>
@@ -165,6 +249,25 @@ function handleSignupInputErrors({
 
   if (password.length < 6) {
     toast.error("Password must be atleast 6 characters");
+    return false;
+  }
+
+  return true;
+}
+
+function handleUpdatePassInputErrors(oldPassword, newPassword, confirmPassword) {
+  if (!oldPassword || !newPassword || !confirmPassword) {
+    toast.error("Please fill in all fields");
+    return false;
+  }
+
+  if (newPassword != confirmPassword) {
+    toast.error("Passwords dont match");
+    return false;
+  }
+
+  if (oldPassword === newPassword) {
+    toast.error("New password cant be the same as old one");
     return false;
   }
 

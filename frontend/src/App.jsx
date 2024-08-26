@@ -11,6 +11,7 @@ import CountryList from "./components/CountryList";
 import City from "./components/City";
 import Form from "./components/Form";
 import SpinnerFullPage from "./components/SpinnerFullPage";
+import Profile from "./pages/Profile";
 
 const Homepage = lazy(() => import("./pages/Homepage"));
 const Product = lazy(() => import("./pages/Product"));
@@ -46,16 +47,28 @@ function App() {
                 <Route path="countries" element={<CountryList />} />
                 <Route path="form" element={<Form />} />
               </Route>
+              <Route
+                path="profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                } />
               <Route path="*" element={<PageNotFound />} />
             </Routes>
           </Suspense>
           <Toaster toastOptions={{
-            error:{
-              style:{
-                fontSize:"medium",
+            success: {
+              style: {
+                fontSize: "medium",
+              }
+            },
+            error: {
+              style: {
+                fontSize: "medium",
               }
             }
-          }}/>
+          }} />
         </BrowserRouter>
       </CitiesProvider>
     </AuthProvider>
